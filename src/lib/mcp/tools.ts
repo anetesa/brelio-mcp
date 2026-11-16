@@ -3,19 +3,23 @@ import { createAdminClient } from '@/lib/supabase/admin';
 export const MCP_TOOLS = [
   {
     name: 'get_appointments',
+    title: 'Get appointments',
+    annotations: { title: 'Get appointments', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     description: 'Get salon appointments within a date range.',
     inputSchema: {
       type: 'object',
       properties: {
         date_from: { type: 'string', description: 'Start date ISO 8601 (e.g. 2026-05-01)' },
         date_to:   { type: 'string', description: 'End date ISO 8601 (e.g. 2026-05-31)' },
-        status:    { type: 'string', enum: ['pending', 'confirmed', 'completed', 'cancelled'] },
+        status:    { type: 'string', enum: ['pending', 'confirmed', 'completed', 'cancelled'], description: 'Only appointments with this status' },
         limit:     { type: 'number', description: 'Max results, default 50' },
       },
     },
   },
   {
     name: 'get_clients',
+    title: 'Find clients',
+    annotations: { title: 'Find clients', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     description: 'Search salon clients by name or phone.',
     inputSchema: {
       type: 'object',
@@ -27,11 +31,15 @@ export const MCP_TOOLS = [
   },
   {
     name: 'list_services',
+    title: 'List services',
+    annotations: { title: 'List services', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     description: 'List all active services offered by the salon.',
     inputSchema: { type: 'object', properties: {} },
   },
   {
     name: 'get_stats',
+    title: 'Get stats',
+    annotations: { title: 'Get stats', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     description: 'Get revenue and appointment statistics for a period.',
     inputSchema: {
       type: 'object',
@@ -42,22 +50,26 @@ export const MCP_TOOLS = [
   },
   {
     name: 'create_appointment',
+    title: 'Create appointment',
+    annotations: { title: 'Create appointment', readOnlyHint: false, destructiveHint: false, openWorldHint: false },
     description: 'Create a new confirmed appointment.',
     inputSchema: {
       type: 'object',
       required: ['client_name', 'service_name', 'start_at'],
       properties: {
-        client_name:  { type: 'string' },
-        client_phone: { type: 'string' },
-        client_email: { type: 'string' },
+        client_name:  { type: 'string', description: 'Existing or new client' },
+        client_phone: { type: 'string', description: 'Finds an existing client, or is saved with a new one' },
+        client_email: { type: 'string', description: 'Saved with a new client' },
         service_name: { type: 'string', description: 'Exact or partial service name' },
         start_at:     { type: 'string', description: 'ISO 8601 datetime' },
-        notes:        { type: 'string' },
+        notes:        { type: 'string', description: 'Shown on the appointment' },
       },
     },
   },
   {
     name: 'check_account',
+    title: 'Check account',
+    annotations: { title: 'Check account', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     description: 'Check whether a Brelio account exists for a given email and whether it is verified. Use when a user reports login or registration problems.',
     inputSchema: {
       type: 'object',

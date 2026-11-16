@@ -3,7 +3,7 @@
   "name": "eu.brelio/brelio",
   "title": "Brelio",
   "description": "Beauty salon management: appointments, clients, services and stats for your Brelio salon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "websiteUrl": "https://brelio.eu",
   "repository": {
     "url": "https://github.com/anetesa/brelio-mcp",
@@ -22,6 +22,10 @@
     {
       "type": "streamable-http",
       "url": "https://brelio.eu/api/mcp"
+    },
+    {
+      "type": "streamable-http",
+      "url": "https://brelio.eu/api/mcp/help"
     }
   ]
 }

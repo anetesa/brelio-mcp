@@ -35,6 +35,23 @@ manicure on Friday at 16:00."*
 | `get_stats` | Appointments, completed visits and revenue for today, the week, the month or the year |
 | `create_appointment` | Books a confirmed appointment; a new client is added if needed |
 
+## Public help server (no sign-in)
+
+`https://brelio.eu/api/mcp/help` is a second, public MCP server. Any assistant can use it without an account to
+answer questions about Brelio:
+
+```bash
+claude mcp add --transport http brelio-help https://brelio.eu/api/mcp/help
+```
+
+| Tool | What it does |
+| --- | --- |
+| `brelio_search_help` | Searches the help pages: features, how-to guides, troubleshooting |
+| `brelio_get_help` | A help page in full |
+| `brelio_list_articles` | The blog for salon owners, in Polish or English |
+| `brelio_get_article` | A blog article in full |
+| `brelio_get_plans` | Plans and prices, the stylist limit, included message credits, the free trial |
+
 ## Source
 
 The server is part of the Brelio web app (Next.js on Vercel, Supabase). This repository holds its MCP and OAuth
@@ -44,6 +61,7 @@ code as it runs in production:
 | --- | --- |
 | `src/app/api/mcp/route.ts` | The MCP endpoint: Streamable HTTP, JSON-RPC, protocol version negotiation |
 | `src/lib/mcp/tools.ts` | The tools, each scoped to the signed-in salon owner |
+| `src/app/api/mcp/help/route.ts`, `src/lib/mcp/help.ts` | The public help server; `scripts/build-mcp-help.ts` bundles the help pages |
 | `src/lib/mcp/auth.ts` | Bearer resolution: a salon API key or an OAuth access token |
 | `src/app/api/oauth/*` | OAuth 2.1: dynamic client registration, authorization with PKCE (S256), tokens and refresh |
 | `src/app/.well-known/*` | Authorization server and protected resource metadata |
